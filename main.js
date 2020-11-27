@@ -27,6 +27,9 @@ setInterval(() => {
 		if (!mob) {
 			return
 		}
+		if (!mobb) {
+			return
+		}
 
 		const mcData = require('minecraft-data')(bot.version)
 		const movements = new Movements(bot, mcData)
