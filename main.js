@@ -37,3 +37,4 @@ bot.once('spawn', () => {
 
 		const goal = new GoalFollow(mob, 1)
 		bot.pathfinder.setGoal(goal, true)
+});
