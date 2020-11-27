@@ -5,8 +5,8 @@ const GoalBlock = goals.GoalBlock
 const autoeat = require('mineflayer-auto-eat')
 
 const bot = mineflayer.createBot({
-    host: 'SERVER IP HERE',
-    port: SERVER PORT HERE,
+    host: '4.tcp.ngrok.io',
+    port: 13509,
     username: 'TestBot'
 })
 
