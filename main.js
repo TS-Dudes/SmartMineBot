@@ -7,13 +7,13 @@ const autoeat = require('mineflayer-auto-eat')
 const bot = mineflayer.createBot({
     host: '4.tcp.ngrok.io',
     port: 13509,
-    username: 'TestBot'
+    username: 'Error'
 })
 
 bot.loadPlugin(pathfinder)
 bot.loadPlugin(autoeat)
 bot.once('spawn', () => {
-bot.chat("Всем привет пацаны! Я ИИ по имени Гоша")
+bot.chat("Всем привет пацаны! Я ИИ по имени Error")
 bot.autoEat.options = {
     priority: 'foodPoints',
     startAt: 10,
