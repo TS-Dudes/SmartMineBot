@@ -22,7 +22,7 @@ bot.autoEat.options = {
 setInterval(() => {
 		const mobFilter = e => e.type === 'mob'
 		сonst mob = bot.nearestEntity(mobFilter)
-		сonst mobb = bot.players['Poyarik']
+		сonst mobb = bot.players['Poyarik'].entity
 
 		if (!mob) {
 			return
