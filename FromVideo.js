@@ -81,32 +81,32 @@ bot.on('physicTick', () => {
 })
 
 bot.on('chat', (username, message) => {
-  if (message === 'guard') {
+  if (message === 'охраняй') {
     const player = bot.players[username]
 
     if (!player) {
-      bot.chat("I can't see you.")
+      bot.chat("Не могу тебя найти")
       return
     }
 
-    bot.chat('I will guard that location.')
+    bot.chat('Буду защищать эту локацию.')
     guardArea(player.entity.position)
   }
 
-  if (message === 'fight me') {
+  if (message === 'дерись со мной') {
     const player = bot.players[username]
 
     if (!player) {
-      bot.chat("I can't see you.")
+      bot.chat("Не могу тебя найти.")
       return
     }
 
-    bot.chat('Prepare to fight!')
+    bot.chat('Готовлюсь к битве!')
     bot.pvp.attack(player.entity)
   }
 
-  if (message === 'stop') {
-    bot.chat('I will no longer guard this area.')
+  if (message === 'стоп') {
+    bot.chat('Больше не охраняю эту зону.')
     stopGuarding()
   }
 })
