@@ -81,32 +81,39 @@ bot.on('physicTick', () => {
 })
 
 bot.on('chat', (username, message) => {
-  if (message === 'охраняй') {
-    const player = bot.players[username]
+  if (username === 'Poyarik'){
+      if (message === 'охраняй') {
+        const player = bot.players[username]
 
-    if (!player) {
-      bot.chat("Не могу тебя найти")
-      return
-    }
+        if (!player) {
+          bot.chat("Не могу тебя найти")
+          return
+        }
 
-    bot.chat('Буду защищать эту локацию.')
-    guardArea(player.entity.position)
-  }
+        bot.chat('Буду защищать эту локацию.')
+        guardArea(player.entity.position)
+      }
 
-  if (message === 'дерись со мной') {
-    const player = bot.players[username]
+      if (message.indexOf('дерись ') !== -1) {
+        var replacement = "дерись ",
+        toReplace = "",
+        str = message;
+    
+        str = str.replace(replacement, toReplace);
+        const player = bot.players[str]
 
-    if (!player) {
-      bot.chat("Не могу тебя найти.")
-      return
-    }
+        if (!player) {
+          bot.chat("Не могу тебя найти.")
+          return
+        }
 
-    bot.chat('Готовлюсь к битве!')
-    bot.pvp.attack(player.entity)
-  }
+        bot.chat('Готовлюсь к битве!')
+        bot.pvp.attack(player.entity)
+      }
 
-  if (message === 'стоп') {
-    bot.chat('Больше не охраняю эту зону.')
-    stopGuarding()
+      if (message === 'стоп') {
+        bot.chat('Больше не охраняю эту зону.')
+        stopGuarding()
+      }
   }
 })
