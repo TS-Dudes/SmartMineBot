@@ -48,6 +48,23 @@ function stopGuarding () {
   bot.pathfinder.setGoal(null)
 }
 
+function sec(){
+		const mobFilter = e => e.type === 'mob'
+		сonst mob = bot.nearestEntity(mobFilter)
+		сonst mobb = bot.players['Poyarik'].entity
+
+		if (!mob) {
+			return
+		}
+		if (!mobb) {
+			return
+		}
+
+		const goal = new GoalFollow(mobb, 1)
+		bot.pathfinder.setGoal(goal, true)
+		
+		bot.pvp.attack(mob);
+
 function moveToGuardPos () {
   const mcData = require('minecraft-data')(bot.version)
   bot.pathfinder.setMovements(new Movements(bot, mcData))
@@ -93,6 +110,10 @@ bot.on('chat', (username, message) => {
         bot.chat('Буду защищать эту локацию.')
         guardArea(player.entity.position)
       }
+      
+      if (message === 'ъуъ'){
+        sec()
+      }
 
       if (message.indexOf('дерись ') !== -1) {
         var replacement = "дерись ",
@@ -112,7 +133,7 @@ bot.on('chat', (username, message) => {
       }
 
       if (message === 'стоп') {
-        bot.chat('Больше не охраняю эту зону.')
+        bot.chat('Больше не охраняю.')
         stopGuarding()
       }
   }
