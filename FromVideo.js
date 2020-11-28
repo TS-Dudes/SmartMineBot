@@ -64,7 +64,7 @@ function sec(){
 		bot.pathfinder.setGoal(goal, true)
 		
 		bot.pvp.attack(mob);
-
+}
 function moveToGuardPos () {
   const mcData = require('minecraft-data')(bot.version)
   bot.pathfinder.setMovements(new Movements(bot, mcData))
@@ -135,6 +135,14 @@ bot.on('chat', (username, message) => {
       if (message === 'стоп') {
         bot.chat('Больше не охраняю.')
         stopGuarding()
+      }
+      if (message === 'выкинь'){
+	      function tossNext () {
+		    if (bot.inventory.items().length === 0) return
+		    const item = bot.inventory.items()[0]
+		    bot.tossStack(item, tossNext)
+		}
+	      tossNext()
       }
   }
 })
