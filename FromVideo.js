@@ -2,17 +2,26 @@ const mineflayer = require('mineflayer')
 const pvp = require('mineflayer-pvp').plugin
 const { pathfinder, Movements, goals} = require('mineflayer-pathfinder')
 const armorManager = require('mineflayer-armor-manager')
+const autoeat = require('mineflayer-auto-eat')
 
 const bot = mineflayer.createBot({
     host: 'localhost', //Host here
-    port: 51734, //Port here
-    username: 'TestBot',
+    port: 62838, //Port here
+    username: 'FuckYeah',
 })
 
 bot.loadPlugin(pvp)
 bot.loadPlugin(armorManager)
 bot.loadPlugin(pathfinder)
+bot.loadPlugin(autoeat)
 
+bot.on('spawn', () => {
+  bot.autoEat.options = {
+    priority: 'foodPoints',
+    startAt: 10,
+    bannedFood: []
+  }
+})
 
 bot.on('playerCollect', (collector, itemDrop) => {
   if (collector !== bot.entity) return
@@ -81,48 +90,49 @@ bot.on('physicTick', () => {
 })
 
 bot.on('chat', (username, message) => {
-  if (username === 'Poyarik'){
-      if (message === 'охраняй') {
-        const player = bot.players[username]
+  if (username === 'Poyarik') {
+    if (message === 'охраняй') {
+      const player = bot.players[username]
 
-        if (!player) {
-          bot.chat("Не могу тебя найти")
-          return
-        }
-
-        bot.chat('Буду защищать эту локацию.')
-        guardArea(player.entity.position)
+      if (!player) {
+        bot.chat("Не могу тебя найти")
+        return
       }
-      
 
-      if (message.indexOf('дерись ') !== -1) {
-        var replacement = "дерись ",
-        toReplace = "",
-        str = message;
-    
-        str = str.replace(replacement, toReplace);
-        const player = bot.players[str]
+      bot.chat('Буду защищать эту локацию.')
+      guardArea(player.entity.position)
+    }
 
-        if (!player) {
-          bot.chat("Не могу тебя найти.")
-          return
-        }
 
-        bot.chat('Готовлюсь к битве!')
-        bot.pvp.attack(player.entity)
+    if (message.indexOf('дерись ') !== -1) {
+      var replacement = "дерись ",
+      toReplace = "",
+      str = message
+
+      str = str.replace(replacement, toReplace)
+      const player = bot.players[str]
+
+      if (!player) {
+        bot.chat("Не могу тебя найти.")
+        return
+      }
+
+      bot.chat('Готовлюсь к битве!')
+      bot.pvp.attack(player.entity)
       }
 
       if (message === 'стоп') {
         bot.chat('Больше не охраняю.')
         stopGuarding()
       }
-      if (message === 'выкинь'){
-	      function tossNext () {
-		    if (bot.inventory.items().length === 0) return
-		    const item = bot.inventory.items()[0]
-		    bot.tossStack(item, tossNext)
-		}
-	      tossNext()
+      if (message === 'выкинь') {
+        function tossNext() {
+          if (bot.inventory.items().length === 0)
+            return
+          const item = bot.inventory.items()[0]
+          bot.tossStack(item, tossNext)
+        }
+        tossNext()
       }
-  }
+    }
 })
