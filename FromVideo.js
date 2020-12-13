@@ -1,19 +1,22 @@
 const mineflayer = require('mineflayer')
 const pvp = require('mineflayer-pvp').plugin
 const { pathfinder, Movements, goals} = require('mineflayer-pathfinder')
+const GoalFollow = goals.GoalFollow
 const armorManager = require('mineflayer-armor-manager')
 const autoeat = require('mineflayer-auto-eat')
+const collectBlock = require('mineflayer-collectblock').plugin
 
 const bot = mineflayer.createBot({
     host: 'localhost', //Host here
-    port: 62838, //Port here
-    username: 'FuckYeah',
+    port: 53124, //Port here
+    username: 'dude',
 })
 
 bot.loadPlugin(pvp)
 bot.loadPlugin(armorManager)
 bot.loadPlugin(pathfinder)
 bot.loadPlugin(autoeat)
+bot.loadPlugin(collectBlock)
 
 bot.on('spawn', () => {
   bot.autoEat.options = {
@@ -91,6 +94,36 @@ bot.on('physicTick', () => {
 
 bot.on('chat', (username, message) => {
   if (username === 'Poyarik') {
+    const mcData = require('minecraft-data')(bot.version)
+    const args = message.split(' ')
+    if (args[0] == 'Собери'){
+
+    // Get the correct block type
+    const blockType = mcData.blocksByName[args[1]]
+    if (!blockType) {
+      bot.chat("Не знаю такого блока.")
+      return
+    }
+
+    // Try and find that block type in the world
+    const block = bot.findBlock({
+      matching: blockType.id,
+      maxDistance: 64
+    })
+
+    if (!block) {
+      bot.chat("Не вижу таких поблизости")
+      return
+    }
+
+    bot.chat('Собираю ближний ' + blockType.name)
+
+    // Collect the block if we found one
+    bot.collectBlock.collect(block, err => {
+      if (err) bot.chat(err.message)
+    })
+    }
+  
     if (message === 'охраняй') {
       const player = bot.players[username]
 
@@ -103,6 +136,22 @@ bot.on('chat', (username, message) => {
       guardArea(player.entity.position)
     }
 
+    if (message.indexOf('ходи ') !== -1) {
+      var replacement = "ходи ",
+      toReplace = "",
+      str = message
+
+      str = str.replace(replacement, toReplace)
+      const player = bot.players[str]
+
+      if (!player) {
+        bot.chat("Не могу найти.")
+        return
+      }
+
+      const goal = new GoalFollow(player.entity, 1)
+		  bot.pathfinder.setGoal(goal, true)
+      }
 
     if (message.indexOf('дерись ') !== -1) {
       var replacement = "дерись ",
