@@ -7,9 +7,9 @@ const autoeat = require('mineflayer-auto-eat')
 const collectBlock = require('mineflayer-collectblock').plugin
 
 const bot = mineflayer.createBot({
-    host: 'localhost', //Host here
-    port: 53124, //Port here
-    username: 'dude',
+    host: 'test', //Host here
+    port: 00000, //Port here
+    username: 'Bot',
 })
 
 bot.loadPlugin(pvp)
@@ -136,6 +136,14 @@ bot.on('chat', (username, message) => {
       guardArea(player.entity.position)
     }
 
+    if (message.indexOf('пиши ') !== -1) {
+      var replacement = "пиши ",
+      toReplace = "",
+      str = message
+
+      str = str.replace(replacement, toReplace)
+      bot.chat(str)
+    }
     if (message.indexOf('ходи ') !== -1) {
       var replacement = "ходи ",
       toReplace = "",
