@@ -1,5 +1,6 @@
 # SmartMineBot
 Бот для Minecraft, написан на Node Js и имеет множество функций.
+## [Видео обзор бота](https://youtu.be/e8ftFYaaYw0)
 
 # Умения
 Бот может:
