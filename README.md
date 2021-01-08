@@ -34,7 +34,7 @@ npm i mineflayer-collectblock
 npm i mineflayer-pathfinder
 npm i mineflayer-auto-eat
 npm i mineflayer-armor-manager
-npv i mineflayer-pvp
+npm i mineflayer-pvp
 ```
 
 Если вы на Windows, то команды нужно писать в **cmd**, а не в **PowerShell**
