@@ -28,6 +28,8 @@
 
 Установите зависимости. Для этого выполните в терминале:
 
+(Всё по отдельности)
+
 ```
 npm i mineflayer
 npm i mineflayer-collectblock
