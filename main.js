@@ -7,8 +7,8 @@ const autoeat = require('mineflayer-auto-eat')
 const collectBlock = require('mineflayer-collectblock').plugin
 
 const bot = mineflayer.createBot({
-    host: 'test',
-    port: 00000,
+    host: 'localhost',
+    port: 59951,
     username: 'Bot',
 })
 
@@ -93,7 +93,7 @@ bot.on('physicTick', () => {
 })
 
 bot.on('chat', (username, message) => {
-  if (username === 'Poyarik') {
+  if (username === 'haphator210') {
     const mcData = require('minecraft-data')(bot.version)
     const args = message.split(' ')
     if (args[0] == 'Собери'){
